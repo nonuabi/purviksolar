@@ -50,17 +50,23 @@
 
         header .container {
             position: relative;
+            z-index: 1000;
         }
 
         .container {
             width: 90%;
             max-width: 1200px;
             margin: auto;
-            overflow: hidden;
+            overflow: visible;
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-sizing: border-box;
+        }
+        
+        /* Only hide overflow in sections, not in header */
+        section .container {
+            overflow: hidden;
         }
 
         /* Container in sections should be block for proper content flow */
@@ -99,6 +105,13 @@
             margin: 0;
             display: flex;
         }
+        
+        /* Ensure nav is visible when active on mobile */
+        @media(max-width: 768px) {
+            nav ul {
+                display: block !important;
+            }
+        }
 
         nav ul li {
             margin-left: 20px;
@@ -134,6 +147,27 @@
             justify-content: center;
             align-items: center;
             -webkit-tap-highlight-color: transparent;
+            position: relative;
+            z-index: 1001;
+            background: transparent;
+            border: none;
+            pointer-events: auto;
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        .menu-toggle:active,
+        .menu-toggle:focus {
+            opacity: 0.7;
+            outline: none;
+        }
+        
+        .menu-toggle:focus-visible {
+            outline: 2px solid var(--primary-orange);
+            outline-offset: 2px;
         }
 
         .menu-toggle span {
@@ -469,6 +503,7 @@
                 justify-content: space-between;
                 align-items: center;
                 width: 95%;
+                overflow: visible;
             }
             
             .logo-area {
@@ -492,6 +527,7 @@
             
             .menu-toggle {
                 display: flex;
+                z-index: 1001;
             }
             
             nav {
@@ -503,11 +539,13 @@
                 box-shadow: 0 5px 10px rgba(0,0,0,0.1);
                 max-height: 0;
                 overflow: hidden;
-                transition: max-height 0.3s ease-out;
+                transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                display: block;
             }
             
             nav.active {
-                max-height: 300px;
+                max-height: 500px;
             }
             
             nav ul {
@@ -515,6 +553,7 @@
                 margin-top: 0;
                 padding: 15px 0;
                 width: 100%;
+                display: block !important;
             }
             
             nav ul li {
@@ -715,11 +754,11 @@
                 <img src="assets/logo_with_background.jpeg" alt="Purvik Solar Logo"> 
                 <div class="logo-text">PURVIK<br><span>Eco Power Solar System</span></div>
             </div>
-            <div class="menu-toggle" id="menu-toggle">
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
             <nav id="nav-menu">
                 <ul>
                     <li><a href="#home">Home</a></li>
@@ -823,6 +862,9 @@
     </footer>
 
     <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+        
         // Contact Form Handling
         const contactForm = document.getElementById('contact-form');
         const formMessage = document.getElementById('form-message');
@@ -928,9 +970,38 @@
         const menuToggle = document.getElementById('menu-toggle');
         const navMenu = document.getElementById('nav-menu');
 
+        console.log('Initializing menu:', { menuToggle, navMenu });
+
         if (menuToggle && navMenu) {
-            menuToggle.addEventListener('click', function() {
+            let ignoreNextClick = false;
+            
+            // Function to toggle menu
+            function toggleMenu(e) {
+                if (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                ignoreNextClick = true;
                 navMenu.classList.toggle('active');
+                const isActive = navMenu.classList.contains('active');
+                console.log('Menu toggled! Active:', isActive);
+                
+                // Reset flag after a delay
+                setTimeout(function() {
+                    ignoreNextClick = false;
+                }, 300);
+            }
+
+            // Add event listeners for menu toggle - use capture phase to ensure it fires
+            menuToggle.addEventListener('click', toggleMenu, true);
+            menuToggle.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                toggleMenu(e);
+            }, true);
+            
+            // Also add mousedown for better mobile support
+            menuToggle.addEventListener('mousedown', function(e) {
+                e.preventDefault();
             });
 
             // Close menu when clicking on a link
@@ -943,14 +1014,23 @@
 
             // Close menu when clicking outside
             document.addEventListener('click', function(event) {
-                const isClickInsideNav = navMenu.contains(event.target);
-                const isClickOnToggle = menuToggle.contains(event.target);
+                // Don't close if toggle button was just clicked
+                if (ignoreNextClick) {
+                    return;
+                }
                 
-                if (!isClickInsideNav && !isClickOnToggle && navMenu.classList.contains('active')) {
+                // Check if click is outside both nav and toggle button
+                if (!navMenu.contains(event.target) && 
+                    !menuToggle.contains(event.target) && 
+                    navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                 }
             });
+        } else {
+            console.error('Menu toggle or nav menu not found!', { menuToggle, navMenu });
         }
+        
+        }); // End DOMContentLoaded
     </script>
 
 </body>
