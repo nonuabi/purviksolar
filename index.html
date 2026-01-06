@@ -965,7 +965,6 @@
                 contactForm.reset();
 
             } catch (error) {
-                console.error('EmailJS Error:', error);
                 showMessage('Something went wrong. Please try again or call us directly at +91 8860713352', 'error');
             } finally {
                 // Re-enable submit button
@@ -974,7 +973,7 @@
             }
         });
 
-        // Phone number formatting (optional enhancement)
+        // Phone number formatting
         const phoneInput = document.getElementById('phone');
         phoneInput.addEventListener('input', function(e) {
             // Remove non-numeric characters
@@ -990,8 +989,6 @@
         const menuToggle = document.getElementById('menu-toggle');
         const navMenu = document.getElementById('nav-menu');
 
-        console.log('Initializing menu:', { menuToggle, navMenu });
-
         if (menuToggle && navMenu) {
             let ignoreNextClick = false;
             
@@ -1003,8 +1000,6 @@
                 }
                 ignoreNextClick = true;
                 navMenu.classList.toggle('active');
-                const isActive = navMenu.classList.contains('active');
-                console.log('Menu toggled! Active:', isActive);
                 
                 // Reset flag after a delay
                 setTimeout(function() {
@@ -1012,14 +1007,12 @@
                 }, 300);
             }
 
-            // Add event listeners for menu toggle - use capture phase to ensure it fires
+            // Add event listeners for menu toggle
             menuToggle.addEventListener('click', toggleMenu, true);
             menuToggle.addEventListener('touchend', function(e) {
                 e.preventDefault();
                 toggleMenu(e);
             }, true);
-            
-            // Also add mousedown for better mobile support
             menuToggle.addEventListener('mousedown', function(e) {
                 e.preventDefault();
             });
@@ -1046,11 +1039,8 @@
                     navMenu.classList.remove('active');
                 }
             });
-        } else {
-            console.error('Menu toggle or nav menu not found!', { menuToggle, navMenu });
         }
-        
-        }); // End DOMContentLoaded
+        });
     </script>
 
 </body>
