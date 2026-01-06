@@ -1,0 +1,2 @@
+Contact: mailto:security@purviksolar.com
+Policy: https://purviksolar.com/security-policy.html
