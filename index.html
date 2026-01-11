@@ -284,6 +284,15 @@
             padding: 60px 0;
         }
 
+        /* Reduce spacing between About Us and Why Choose Us */
+        #about-us {
+            padding-bottom: 30px;
+        }
+
+        #about {
+            padding-top: 30px;
+        }
+
         h2.section-title {
             text-align: center !important;
             color: var(--primary-blue);
@@ -311,31 +320,45 @@
         
         .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             margin-top: 30px;
         }
         
         .value-card {
-            padding: 20px;
+            padding: 30px;
             border: 1px solid #ddd;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .value-card h3 {
             color: var(--primary-green);
+            margin-top: 0;
+        }
+
+        .value-card p {
+            flex: 1;
+            margin-bottom: 0;
         }
 
         /* Services Section */
         #services {
-            background: var(--light-gray);
+            background: var(--white);
+        }
+
+        /* Testimonials Section */
+        #testimonials {
+            background: var(--white);
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
         .service-card {
@@ -345,6 +368,9 @@
             text-align: center;
             border-bottom: 5px solid var(--primary-blue);
             transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .service-card:hover {
@@ -354,6 +380,12 @@
 
         .service-card h3 {
             color: var(--primary-blue);
+            margin-top: 0;
+        }
+
+        .service-card p {
+            flex: 1;
+            margin-bottom: 0;
         }
 
         /* Contact Section */
@@ -500,6 +532,13 @@
 
         /* Mobile Responsive */
         
+        /* Large screens - ensure 4 cards in one row */
+        @media(min-width: 1280px) {
+            .services-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
         /* Tablet and below */
         @media(max-width: 1024px) {
             .container {
@@ -511,12 +550,9 @@
                 text-align: center !important;
             }
             
-            .about-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
-            
+            .about-grid,
             .services-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
             }
         }
         
@@ -646,14 +682,16 @@
                 gap: 20px;
             }
             
-            .value-card {
-                padding: 20px;
+            .value-card,
+            .service-card {
+                padding: 25px 20px;
             }
             
             /* Services Section */
+            .about-grid,
             .services-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 20px;
             }
             
             .service-card {
@@ -745,8 +783,14 @@
                 text-align: center !important;
             }
             
-            .value-card, .service-card {
+            .value-card, 
+            .service-card {
                 padding: 20px 15px;
+            }
+            
+            .about-grid,
+            .services-grid {
+                gap: 20px;
             }
             
             .contact-item {
@@ -791,8 +835,10 @@
             <nav id="nav-menu">
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li><a href="#about-us">About Us</a></li>
+                    <li><a href="#about">Why Choose Us</a></li>
                     <li><a href="#services">Services</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
@@ -803,6 +849,20 @@
         <h1>Let's Make The Future Bright</h1>
         <p>Switch to Solar with Purvik Eco Power. Save Money. Save Earth.</p>
         <a href="#contact" class="btn">Get a Free Quote</a>
+    </section>
+
+    <section id="about-us">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div style="max-width: 800px; margin: 0 auto 50px auto; text-align: center; line-height: 1.8;">
+                <p style="margin-bottom: 25px; font-size: 1.1rem; color: #555;">
+                    Welcome to <strong style="color: var(--primary-blue);">Purvik Eco Power Solar System</strong>, your trusted partner in sustainable energy solutions. Founded by alumnus of <strong>GJUS&T Hisar</strong>, we are committed to providing reliable, cost-effective, and eco-friendly solar energy alternatives tailored to your unique needs.
+                </p>
+                <p style="margin-bottom: 0; font-size: 1.1rem; color: #555;">
+                    Our founder, <strong style="color: var(--primary-green);">Mr. Rajendra Oad</strong>, brings <strong style="color: var(--primary-orange);">8 years of specialized solar EPC expertise</strong>, with a proven track record of successfully executing large-scale industrial and commercial installations across India. We combine cutting-edge technology, customized solutions, and a client-centric approach to ensure seamless project execution—from concept to commissioning—delivering maximum generation, minimal downtime, and rapid ROI.
+                </p>
+            </div>
+        </div>
     </section>
 
     <section id="about">
@@ -847,6 +907,32 @@
                 <div class="service-card">
                     <h3>Operation & Maintenance</h3>
                     <p>Regular cleaning and health checks to keep your system running at 100%.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Testimonials</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px auto;">
+                Hear from our satisfied clients about their experience with Purvik Eco Power Solar System.
+            </p>
+            <div class="about-grid">
+                <div class="value-card">
+                    <h3>Excellent Service</h3>
+                    <p>"Purvik Eco Power provided exceptional service from start to finish. The installation was smooth, and we've seen significant savings on our electricity bills. Highly recommended!"</p>
+                    <p style="color: var(--primary-green); font-weight: bold; margin-top: 15px;">— Satisfied Customer</p>
+                </div>
+                <div class="value-card">
+                    <h3>Professional Team</h3>
+                    <p>"The team was professional, knowledgeable, and always available to answer our questions. The quality of work exceeded our expectations. Great investment for our business!"</p>
+                    <p style="color: var(--primary-green); font-weight: bold; margin-top: 15px;">— Business Owner</p>
+                </div>
+                <div class="value-card">
+                    <h3>Outstanding Results</h3>
+                    <p>"We are extremely happy with our solar installation. The system is performing better than expected, and the maintenance support has been excellent. Thank you Purvik Eco Power!"</p>
+                    <p style="color: var(--primary-green); font-weight: bold; margin-top: 15px;">— Happy Client</p>
                 </div>
             </div>
         </div>
