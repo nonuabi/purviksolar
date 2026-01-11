@@ -282,11 +282,30 @@
         /* Section Styling */
         section {
             padding: 60px 0;
+            position: relative;
+        }
+
+        /* Subtle section dividers for visual separation */
+        section:not(:last-child)::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--primary-orange), transparent);
+            margin: 0 auto;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         /* Reduce spacing between About Us and Why Choose Us */
         #about-us {
             padding-bottom: 30px;
+        }
+
+        #about-us::after {
+            display: none;
         }
 
         #about {
@@ -317,6 +336,11 @@
             background: var(--white);
             text-align: center;
         }
+
+        /* About Us Section - subtle background for distinction */
+        #about-us {
+            background: var(--white);
+        }
         
         .about-grid {
             display: grid;
@@ -345,14 +369,14 @@
             margin-bottom: 0;
         }
 
-        /* Services Section */
+        /* Services Section - subtle alternating background */
         #services {
-            background: var(--white);
+            background: var(--light-gray);
         }
 
-        /* Testimonials Section */
+        /* Testimonials Section - subtle alternating background */
         #testimonials {
-            background: var(--white);
+            background: var(--light-gray);
         }
 
         .services-grid {
